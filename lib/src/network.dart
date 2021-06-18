@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'base_dialog.dart';
+import 'common.dart';
 
 /// Widget that displays Giffy Dialog with image obtained from the network.
 ///
@@ -17,24 +18,22 @@ import 'base_dialog.dart';
 /// );
 class NetworkGiffyDialog extends StatelessWidget {
   NetworkGiffyDialog({
-    Key key,
-    @required this.image,
-    @required this.title,
-    this.onOkButtonPressed,
-    this.onCancelButtonPressed,
-    this.description,
+    Key? key,
+    required this.image,
+    required this.title,
+    required this.onOkButtonPressed,
+    required this.onCancelButtonPressed,
+    required this.description,
     this.onlyOkButton = false,
     this.onlyCancelButton = false,
-    this.buttonOkText,
-    this.buttonCancelText,
+    required this.buttonOkText,
+    required this.buttonCancelText,
     this.buttonOkColor = Colors.green,
     this.buttonCancelColor = Colors.grey,
     this.cornerRadius = 8.0,
     this.buttonRadius = 8.0,
     this.entryAnimation = EntryAnimation.DEFAULT,
-  })  : assert(image != null),
-        assert(title != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Image to display in dialog.
   ///

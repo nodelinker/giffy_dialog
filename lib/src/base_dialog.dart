@@ -2,53 +2,25 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-/// Defines variants of entry animations
-enum EntryAnimation {
-  /// Appears in Center, standard Material dialog entrance animation, i.e. slow fade-in in the center of the screen.
-  DEFAULT,
-
-  /// Enters screen horizontally from the left
-  LEFT,
-
-  /// Enters screen horizontally from the right
-  RIGHT,
-
-  /// Enters screen horizontally from the top
-  TOP,
-
-  /// Enters screen horizontally from the bottom
-  BOTTOM,
-
-  /// Enters screen from the top left corner
-  TOP_LEFT,
-
-  /// Enters screen from the top right corner
-  TOP_RIGHT,
-
-  /// Enters screen from the bottom left corner
-  BOTTOM_LEFT,
-
-  /// Enters screen from the bottom right corner
-  BOTTOM_RIGHT,
-}
+import 'common.dart';
 
 class BaseGiffyDialog extends StatefulWidget {
   BaseGiffyDialog({
-    Key key,
-    @required this.imageWidget,
-    @required this.title,
-    @required this.onOkButtonPressed,
-    @required this.description,
-    @required this.onlyOkButton,
-    @required this.onlyCancelButton,
-    @required this.buttonOkText,
-    @required this.buttonCancelText,
-    @required this.buttonOkColor,
-    @required this.buttonCancelColor,
-    @required this.cornerRadius,
-    @required this.buttonRadius,
-    @required this.entryAnimation,
-    @required this.onCancelButtonPressed,
+    Key? key,
+    required this.imageWidget,
+    required this.title,
+    required this.onOkButtonPressed,
+    required this.description,
+    required this.onlyOkButton,
+    required this.onlyCancelButton,
+    required this.buttonOkText,
+    required this.buttonCancelText,
+    required this.buttonOkColor,
+    required this.buttonCancelColor,
+    required this.cornerRadius,
+    required this.buttonRadius,
+    required this.entryAnimation,
+    required this.onCancelButtonPressed,
   }) : super(key: key);
 
   final Widget imageWidget;
@@ -72,8 +44,8 @@ class BaseGiffyDialog extends StatefulWidget {
 
 class _BaseGiffyDialogState extends State<BaseGiffyDialog>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<Offset> _entryAnimation;
+  late AnimationController _animationController;
+  late Animation<Offset> _entryAnimation;
 
   get _start {
     switch (widget.entryAnimation) {
@@ -122,7 +94,7 @@ class _BaseGiffyDialogState extends State<BaseGiffyDialog>
 
   @override
   void dispose() {
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -200,30 +172,25 @@ class _BaseGiffyDialogState extends State<BaseGiffyDialog>
             : MainAxisAlignment.center,
         children: <Widget>[
           if (!widget.onlyOkButton) ...[
-            RaisedButton(
-              color: widget.buttonCancelColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(widget.buttonRadius)),
-              onPressed: widget.onCancelButtonPressed ??
-                  () => Navigator.of(context).pop(),
-              child: widget.buttonCancelText ??
-                  Text(
-                    'Cancel',
-                    style: TextStyle(color: Colors.white),
-                  ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: widget.buttonCancelColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(widget.buttonRadius)),
+              ),
+              onPressed: widget.onCancelButtonPressed,
+              child: widget.buttonCancelText,
             )
           ],
           if (!widget.onlyCancelButton) ...[
-            RaisedButton(
-              color: widget.buttonOkColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(widget.buttonRadius)),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: widget.buttonOkColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(widget.buttonRadius)),
+              ),
               onPressed: widget.onOkButtonPressed,
-              child: widget.buttonOkText ??
-                  Text(
-                    'OK',
-                    style: TextStyle(color: Colors.white),
-                  ),
+              child: widget.buttonOkText,
             ),
           ],
         ],

@@ -9,7 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flare_flutter: ^2.0.5
+  cached_network_image: ^3.0.0
+  google_fonts: ^2.1.0
+  path_provider: ^2.0.2
+  flare_flutter: ^3.0.1
   
 dev_dependencies:
   flutter_test:
